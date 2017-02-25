@@ -3,12 +3,12 @@ apply plugin: 'android-apt'
 apply plugin: 'realm-android'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion 25
+    buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "com.example.congbai.fundweather"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion 21
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -19,6 +19,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    return void
 }
 
 dependencies {
@@ -44,22 +45,23 @@ dependencies {
 
     //squareup dependencies
     compile 'com.squareup.okhttp3:okhttp:3.6.0'
+    compile 'com.squareup.okio:okio:1.11.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
 
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.2.0'
+    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+
+    //RxJava dependencies
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.2'
+    compile 'org.reactivestreams:reactive-streams:1.0.0'
 
     compile 'com.jakewharton:butterknife:8.5.1'
     apt 'com.jakewharton:butterknife-compiler:8.5.1'
 
     //glide dependencies
     compile 'com.github.bumptech.glide:glide:3.7.0'
-
-    //RxJava dependencies
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.0.1'
-    compile 'com.jakewharton.rxbinding:rxbinding:1.0.0'
 
     provided 'javax.annotation:jsr250-api:1.0'
     testCompile 'junit:junit:4.12'
