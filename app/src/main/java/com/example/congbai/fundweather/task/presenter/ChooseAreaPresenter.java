@@ -1,6 +1,8 @@
 package com.example.congbai.fundweather.task.presenter;
 
+import com.example.congbai.fundweather.model.repository.ChooseAreaRepository;
 import com.example.congbai.fundweather.task.contract.ChooseAreaContract;
+import com.example.congbai.fundweather.util.ToastUtil;
 
 import javax.inject.Inject;
 
@@ -10,11 +12,15 @@ import javax.inject.Inject;
  */
 
 public class ChooseAreaPresenter implements ChooseAreaContract.Presenter {
-    private ChooseAreaContract.View mChooseAreaView;
+    private final ChooseAreaRepository mChooseAreaRepository;
+    private final ChooseAreaContract.View mChooseAreaView;
+    private final ToastUtil mToastUtil;
 
     @Inject
-    ChooseAreaPresenter(ChooseAreaContract.View ChooseAreaView) {
+    ChooseAreaPresenter(ChooseAreaContract.View ChooseAreaView,ChooseAreaRepository chooseAreaRepository,ToastUtil toastUtil) {
         mChooseAreaView = ChooseAreaView;
+        mChooseAreaRepository = chooseAreaRepository;
+        mToastUtil = toastUtil;
     }
 
     @Inject
@@ -23,12 +29,19 @@ public class ChooseAreaPresenter implements ChooseAreaContract.Presenter {
     }
 
     @Override
-    public void getMessage() {
-        mChooseAreaView.toastMessage("你好丽胖胖");
-    }
-
-    @Override
     public void start() {
 
     }
+
+    @Override
+    public void saveProvince() {
+        mChooseAreaRepository.saveProvince();
+    }
+
+    @Override
+    public void getMessage() {
+        String cityName = mChooseAreaRepository.getCityTest();
+        mToastUtil.showToast(cityName);
+    }
+
 }

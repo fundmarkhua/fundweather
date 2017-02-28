@@ -18,7 +18,7 @@ public class ChooseAreaModule {
     }
 
     @Provides
-    ChooseAreaContract.View provideChooseContractView() {
+    ChooseAreaContract.View provideChooseAreaContractView() {
         return mView;
     }
 

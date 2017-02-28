@@ -15,6 +15,7 @@ public interface ChooseAreaContract {
     }
 
     interface Presenter extends BasePresenter {
+        void saveProvince();
         void getMessage();
     }
 }

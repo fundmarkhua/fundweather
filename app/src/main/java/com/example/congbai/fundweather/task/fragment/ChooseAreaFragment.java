@@ -35,6 +35,13 @@ public class ChooseAreaFragment extends Fragment implements ChooseAreaContract.V
         return new ChooseAreaFragment();
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_choose_area, container, false);
+        ButterKnife.bind(this, root);
+        return root;
+    }
 
     @Override
     public void onResume() {
@@ -43,25 +50,22 @@ public class ChooseAreaFragment extends Fragment implements ChooseAreaContract.V
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_choose_area, container, false);
-        ButterKnife.bind(this,root);
-        return root;
-    }
-
-    @OnClick(R.id.button_test)
-    public void testButton(){
-        mPresenter.getMessage();
-    }
-
-    @Override
     public void setPresenter(@NonNull ChooseAreaContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
     }
 
+    @OnClick(R.id.button_test)
+    public void testButton() {
+        mPresenter.getMessage();
+    }
+
+    @OnClick(R.id.button_save)
+    public void saveButton() {
+        mPresenter.saveProvince();
+    }
+
     @Override
     public void toastMessage(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
+
     }
 }

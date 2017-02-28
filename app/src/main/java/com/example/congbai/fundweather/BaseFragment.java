@@ -3,6 +3,10 @@ package com.example.congbai.fundweather;
 
 import android.app.Fragment;
 
+import com.example.congbai.fundweather.util.ToastUtil;
+
+import javax.inject.Inject;
+
 import io.reactivex.disposables.Disposable;
 
 
