@@ -2,8 +2,13 @@ package com.example.congbai.fundweather;
 
 import android.app.Application;
 
+import com.example.congbai.fundweather.util.RealmDatabaseMigration;
+
+import java.util.concurrent.atomic.AtomicLong;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmMigration;
 
 
 /**
@@ -14,6 +19,7 @@ import io.realm.RealmConfiguration;
 public class MyApplication extends Application {
     //基础数据配置
     public static final String DB_NAME = "myRealm.fundWeather";
+    public static final String BASE_URL = "http://guolin.tech/api/";
 
     private ApplicationComponent mApplicationComponent;
 
@@ -24,10 +30,15 @@ public class MyApplication extends Application {
         Realm.init(this);
         RealmConfiguration configuration = new RealmConfiguration.Builder()
                 .name(DB_NAME)
-                .deleteRealmIfMigrationNeeded()
+                //数据库迁移写法
+                //.schemaVersion(1)//新数据库版本
+                //.migration(new RealmDatabaseMigration())//检测到新版本，开始迁移数据库
+                //.schemaVersion(2)
+                //.deleteRealmIfMigrationNeeded()
                 .build();
+
         Realm.setDefaultConfiguration(configuration);
-        mApplicationComponent =  DaggerApplicationComponent.builder()
+        mApplicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(getApplicationContext())).build();
     }
 

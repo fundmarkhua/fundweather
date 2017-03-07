@@ -2,7 +2,9 @@ package com.example.congbai.fundweather;
 
 import android.content.Context;
 
+import com.example.congbai.fundweather.model.network.NetWork;
 import com.example.congbai.fundweather.model.repository.ChooseAreaRepository;
+import com.example.congbai.fundweather.util.RealmHelper;
 import com.example.congbai.fundweather.util.ToastUtil;
 
 import javax.inject.Singleton;
@@ -23,4 +25,8 @@ public interface ApplicationComponent {
     Context getContext();
 
     ToastUtil getToastUtil();
+
+    RealmHelper getRealmHelper();
+
+    NetWork getNetWork();
 }

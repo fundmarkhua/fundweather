@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 
 import com.example.congbai.fundweather.BaseActivity;
 import com.example.congbai.fundweather.MyApplication;
@@ -25,16 +26,6 @@ public class ChooseAreaActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_area);
-        // Set up the toolbar.
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar ab = getSupportActionBar();
-        try {
-            ab.setDisplayHomeAsUpEnabled(true);
-            ab.setDisplayShowHomeEnabled(true);
-        } catch (Exception e) {
-            Log.w(TAG, "onCreate: ", e);
-        }
 
         ChooseAreaFragment chooseAreaFragment = (ChooseAreaFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.contentFrame);
@@ -43,11 +34,17 @@ public class ChooseAreaActivity extends BaseActivity {
             ActivityUtile.addFragmentToActivity(getSupportFragmentManager(),
                     chooseAreaFragment, R.id.contentFrame);
         }
-
         //create presenter
         DaggerChooseAreaComponent.builder()
                 .chooseAreaModule(new ChooseAreaModule(chooseAreaFragment))
                 .applicationComponent(((MyApplication)getApplication()).getApplicationComponent())
                 .build().inject(this);
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 }

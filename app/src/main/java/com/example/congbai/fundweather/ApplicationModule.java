@@ -2,6 +2,7 @@ package com.example.congbai.fundweather;
 
 import android.content.Context;
 
+import com.example.congbai.fundweather.model.network.NetWork;
 import com.example.congbai.fundweather.util.RealmHelper;
 import com.example.congbai.fundweather.util.ToastUtil;
 
@@ -32,8 +33,20 @@ public final class ApplicationModule {
 
     @Singleton
     @Provides
-    ToastUtil provideToastUtil(){
+    ToastUtil provideToastUtil() {
         return new ToastUtil(mContext);
+    }
+
+    @Singleton
+    @Provides
+    RealmHelper provideRealmHelper() {
+        return new RealmHelper();
+    }
+
+    @Singleton
+    @Provides
+    NetWork provideNetWork() {
+        return new NetWork();
     }
 
 }

@@ -4,4 +4,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="test">test</string>
     <string name="save">save</string>
+    <string name="onLoad">数据正在加载</string>
 </resources>
