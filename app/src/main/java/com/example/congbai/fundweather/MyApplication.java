@@ -20,7 +20,7 @@ public class MyApplication extends Application {
     //基础数据配置
     public static final String DB_NAME = "myRealm.fundWeather";
     public static final String BASE_URL = "http://guolin.tech/api/";
-
+    public static final String REMOTE_KEY = "a5f9cc8e49874ab99e9fb5b792e1d467";
     private ApplicationComponent mApplicationComponent;
 
     @Override
@@ -36,8 +36,8 @@ public class MyApplication extends Application {
                 //.schemaVersion(2)
                 //.deleteRealmIfMigrationNeeded()
                 .build();
-
         Realm.setDefaultConfiguration(configuration);
+
         mApplicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(getApplicationContext())).build();
     }

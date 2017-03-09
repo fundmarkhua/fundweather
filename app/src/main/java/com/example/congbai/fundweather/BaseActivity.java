@@ -1,7 +1,10 @@
 package com.example.congbai.fundweather;
 
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+
+import butterknife.ButterKnife;
 
 /**
  * Created by fundmarkhua on 2017/2/24
@@ -10,6 +13,11 @@ import android.view.KeyEvent;
 public class BaseActivity extends AppCompatActivity {
     protected final String TAG = this.getClass().getSimpleName();
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ButterKnife.bind(this);
+    }
     //返回键监听实现
     public interface FragmentBackListener {
         void onBackForward();
@@ -46,6 +54,4 @@ public class BaseActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
 }

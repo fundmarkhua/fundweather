@@ -24,13 +24,6 @@
                 app:layout_scrollFlags="scroll|enterAlways|snap"/>
         </android.support.design.widget.AppBarLayout>
 
-        <Button
-            android:id="@+id/bt_text"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="end"
-            android:text="@string/app_name" />
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_area"
             android:layout_width="match_parent"

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.congbai.fundweather.model.network.NetWork;
 import com.example.congbai.fundweather.model.repository.ChooseAreaRepository;
+import com.example.congbai.fundweather.model.repository.ShowWeatherRepository;
 import com.example.congbai.fundweather.util.RealmHelper;
 import com.example.congbai.fundweather.util.ToastUtil;
 
@@ -22,11 +23,14 @@ public interface ApplicationComponent {
 
     ChooseAreaRepository getChooseAreaRepository();
 
+    ShowWeatherRepository getWeatherRepository();
+
     Context getContext();
 
     ToastUtil getToastUtil();
+/**
+ RealmHelper getRealmHelper();
 
-    RealmHelper getRealmHelper();
-
-    NetWork getNetWork();
+ NetWork getNetWork();
+ **/
 }

@@ -1,11 +1,6 @@
 package com.example.congbai.fundweather.task.activity;
 
-import android.support.v7.app.ActionBar;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.KeyEvent;
-
 import com.example.congbai.fundweather.BaseActivity;
 import com.example.congbai.fundweather.MyApplication;
 import com.example.congbai.fundweather.R;
@@ -14,13 +9,24 @@ import com.example.congbai.fundweather.task.fragment.ChooseAreaFragment;
 import com.example.congbai.fundweather.task.module.ChooseAreaModule;
 import com.example.congbai.fundweather.task.presenter.ChooseAreaPresenter;
 import com.example.congbai.fundweather.util.ActivityUtile;
+import com.example.congbai.fundweather.util.ToastUtil;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+
+/**
+ * Created by fundmarkhua on 2017/3/7
+ * Email:57525101@qq.com
+ * 用于控制fragment
+ */
 public class ChooseAreaActivity extends BaseActivity {
 
     @Inject
     ChooseAreaPresenter mChooseAreaPresenter;
+    @Inject
+    ToastUtil toastUtil;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,5 +52,4 @@ public class ChooseAreaActivity extends BaseActivity {
         onBackPressed();
         return true;
     }
-
 }

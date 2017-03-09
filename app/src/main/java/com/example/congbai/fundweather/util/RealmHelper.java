@@ -14,6 +14,7 @@ import io.realm.Realm;
 public class RealmHelper {
     private Realm mRealm;
     private static final String TAG = "RealmHelper";
+
     public RealmHelper() {
     }
 
@@ -30,12 +31,11 @@ public class RealmHelper {
      * @return 返回计算好的主键值
      */
     public int getPrimaryKey(Class tableName, String fieldName) {
-        long nextKey;
+        long nextKey = 1;
         try {
             nextKey = new AtomicLong(mRealm.where(tableName).max(fieldName).longValue()).incrementAndGet();
         } catch (Exception e) {
-            nextKey = 1;
-            Log.w(TAG, "getPrimaryKey: ",e );
+            Log.w(TAG, "getPrimaryKey: ", e);
         }
         return Long.valueOf(nextKey).intValue();
     }

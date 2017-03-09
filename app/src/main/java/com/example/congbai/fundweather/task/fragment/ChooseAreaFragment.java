@@ -3,13 +3,17 @@ package com.example.congbai.fundweather.task.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +26,7 @@ import com.example.congbai.fundweather.BaseFragment;
 import com.example.congbai.fundweather.R;
 import com.example.congbai.fundweather.model.network.gson.AreaData;
 import com.example.congbai.fundweather.task.activity.ChooseAreaActivity;
+import com.example.congbai.fundweather.task.activity.ShowWeatherActivity;
 import com.example.congbai.fundweather.task.adapater.AreaAdapter;
 import com.example.congbai.fundweather.task.contract.ChooseAreaContract;
 import com.example.congbai.fundweather.widget.DividerItemDecoration;
@@ -65,8 +70,6 @@ public class ChooseAreaFragment extends BaseFragment implements ChooseAreaContra
     Toolbar toolbar;
     @BindView(R.id.rv_area)
     RecyclerView rv_area;
-    @BindView(R.id.bt_text)
-    Button bu_text;
 
     public static ChooseAreaFragment newInstance() {
         return new ChooseAreaFragment();
@@ -95,6 +98,14 @@ public class ChooseAreaFragment extends BaseFragment implements ChooseAreaContra
     @Override
     public void onActivityCreated(Bundle saveInstanceState) {
         super.onActivityCreated(saveInstanceState);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String weatherString = prefs.getString("weather", null);
+        if (weatherString != null) {
+            Intent intent = new Intent(getActivity(), ShowWeatherActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+        }
+
         areaAdapter.setmOnItemClickListener(new AreaAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -107,11 +118,19 @@ public class ChooseAreaFragment extends BaseFragment implements ChooseAreaContra
                     mPresenter.getCountyData(selectedArea.getId());
                 } else if (currentLevel == LEVEL_COUNTY) {
                     //selectedArea = mAreaDataList.get(position);
-                    Toast.makeText(getActivity(), mAreaDataList.get(position).getName() + " 天气想知道吗?", Toast.LENGTH_SHORT).show();
+                    String weatherId = mAreaDataList.get(position).getWeather_id();
+                    try {
+                        Intent intent = new Intent(getActivity(), ShowWeatherActivity.class);
+                        intent.putExtra("weather_id", weatherId);
+                        startActivity(intent);
+                    } catch (Exception e) {
+                        Log.e(TAG, "onItemClick: ", e);
+                    }
+                    getActivity().finish();
                 }
             }
         });
-        mPresenter.getProvinceData();
+        mPresenter.getProvinceData() ;
     }
 
     /**
@@ -149,12 +168,6 @@ public class ChooseAreaFragment extends BaseFragment implements ChooseAreaContra
         if (!backUp()) {
             getActivity().finish();
         }
-    }
-
-    @OnClick(R.id.bt_text)
-    public void testMethod() {
-        mPresenter.getMessage();
-        //mPresenter.getProvinceData();
     }
 
     @Override

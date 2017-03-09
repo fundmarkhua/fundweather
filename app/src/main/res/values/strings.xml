@@ -5,4 +5,12 @@
     <string name="test">test</string>
     <string name="save">save</string>
     <string name="onLoad">数据正在加载</string>
+    <string name="loadError">天气数据获取异常</string>
+
+    <string name="forecast">预报</string>
+    <string name="aqi">空气质量</string>
+    <string name="aqi_index">AQI 指数</string>
+    <string name="pm25_index">PM25 指数</string>
+    <string name="suggestion">生活建议</string>
+
 </resources>
