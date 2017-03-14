@@ -56,6 +56,7 @@ public class ShowWeatherPresenter implements ShowWeatherContract.Presenter {
 
     @Override
     public void getWeatherDataById(String WeatherId) {
+        mShowWeatherView.showRefreshStatus();
         mShowWeatherRepository.getWeatherData(WeatherId)
                 .subscribeOn(Schedulers.io())
                 //仅指定事件消费的线程为安卓主线程，其他存在于IO线程

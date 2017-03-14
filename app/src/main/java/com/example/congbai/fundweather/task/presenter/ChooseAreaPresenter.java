@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.congbai.fundweather.model.network.gson.AreaData;
 import com.example.congbai.fundweather.model.repository.ChooseAreaRepository;
 import com.example.congbai.fundweather.task.contract.ChooseAreaContract;
+import com.example.congbai.fundweather.util.LogUtil;
 import com.example.congbai.fundweather.util.ToastUtil;
 
 import java.util.List;
@@ -17,6 +18,8 @@ import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -46,36 +49,6 @@ public class ChooseAreaPresenter implements ChooseAreaContract.Presenter {
     public void start() {
     }
 
-
-    @Override
-    public void saveProvince() {
-        // mChooseAreaRepository.saveProvince();
-    }
-
-    /**
-     * 写各种功能实现思路的验证方法
-     */
-    @Override
-    public void getMessage() {
-        Log.w(TAG, "getMessage: " + mChooseAreaRepository.getCityTest());
-        /**
-         Observable.create(new ObservableOnSubscribe<List<AreaData>>() {
-        @Override public void subscribe(ObservableEmitter<List<AreaData>> e) throws Exception {
-        List<AreaData> areaList = mChooseAreaRepository.getAreaData("province", 0);
-        e.onNext(areaList);
-        }
-        })
-         .subscribeOn(Schedulers.io())
-         .observeOn(AndroidSchedulers.mainThread())
-         .subscribe(new Consumer<List<AreaData>>() {
-        @Override public void accept(List<AreaData> areaList) throws Exception {
-        Log.w(TAG, "accept: " + Thread.currentThread().getName());
-        Log.w(TAG, "accept: " + Thread.currentThread().getId());
-        Log.w(TAG, "accept: 数据");
-        }
-        }); **/
-    }
-
     @Override
     public void getProvinceData() {
         mChooseAreaView.showProgressDialog();
@@ -83,9 +56,21 @@ public class ChooseAreaPresenter implements ChooseAreaContract.Presenter {
             @Override
             public void subscribe(ObservableEmitter<List<AreaData>> e) throws Exception {
                 List<AreaData> areaList = mChooseAreaRepository.getAreaData("province", 0);
+
                 e.onNext(areaList);
             }
         })
+                .map(new Function<List<AreaData>, List<AreaData>>() {
+                    @Override
+                    public List<AreaData> apply(List<AreaData> areaDatas) throws Exception {
+                        String cityName = mChooseAreaRepository.getLocationCity();
+                        if (cityName != null) {
+                            AreaData areaData = mChooseAreaRepository.getWeatherCode(cityName.replace("市", ""));
+                            areaDatas.add(0, areaData);
+                        }
+                        return areaDatas;
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 //仅指定事件消费的线程为安卓主线程，其他存在于IO线程
                 .observeOn(AndroidSchedulers.mainThread())
@@ -194,7 +179,7 @@ public class ChooseAreaPresenter implements ChooseAreaContract.Presenter {
     }
 
     @Override
-    public void getWeatherData(String weatherId) {
+    public void getWeatherCode(String cityName) {
 
     }
 }

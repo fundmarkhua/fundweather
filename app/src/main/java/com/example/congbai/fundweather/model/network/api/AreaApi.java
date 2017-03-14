@@ -9,6 +9,7 @@ import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by fundmarkhua on 2017/2/28
@@ -16,14 +17,9 @@ import retrofit2.http.Path;
  */
 
 public interface AreaApi {
-    @GET("china")
-    Observable<List<AreaData>> getProvincesRx();
 
-    @GET("china/{provinceId}")
-    Observable<List<AreaData>> getCitiesRx(@Path("provinceId") int provinceId);
-
-    @GET("china/city/{cityId}")
-    Observable<List<AreaData>> getCountiesRx(@Path("cityId") int cityId);
+    @GET("search")
+    Call<List<AreaData>> getWeatherCode(@Query("city") String cityId);
 
     @GET("china")
     Call<List<AreaData>> getProvinces();

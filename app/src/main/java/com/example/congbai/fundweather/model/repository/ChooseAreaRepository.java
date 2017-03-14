@@ -1,8 +1,12 @@
 package com.example.congbai.fundweather.model.repository;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
 import com.example.congbai.fundweather.MyApplication;
 import com.example.congbai.fundweather.model.entity.City;
 import com.example.congbai.fundweather.model.entity.County;
@@ -10,6 +14,8 @@ import com.example.congbai.fundweather.model.entity.Province;
 import com.example.congbai.fundweather.model.impl.ChooseAreaImpl;
 import com.example.congbai.fundweather.model.network.NetWork;
 import com.example.congbai.fundweather.model.network.gson.AreaData;
+import com.example.congbai.fundweather.util.LocationUtil;
+import com.example.congbai.fundweather.util.LogUtil;
 import com.example.congbai.fundweather.util.RealmHelper;
 import com.example.congbai.fundweather.util.ToastUtil;
 
@@ -19,6 +25,13 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import io.realm.RealmResults;
 import retrofit2.Call;
@@ -38,6 +51,9 @@ public class ChooseAreaRepository implements ChooseAreaImpl {
     RealmHelper realmHelper;
     @Inject
     NetWork netWork;
+    @Inject
+    LocationUtil locationUtil;
+
     private static final String TAG = "ChooseAreaRepository";
     private String baseUrl = MyApplication.BASE_URL;
 
@@ -330,5 +346,30 @@ public class ChooseAreaRepository implements ChooseAreaImpl {
             realmHelper.close();
         }
         return false;
+    }
+
+    @Override
+    public AreaData getWeatherCode(String cityName) {
+        try {
+            Call<List<AreaData>> call = netWork.getWeatherCodeApi(baseUrl, false).getWeatherCode(cityName);
+            List<AreaData> areaList = call.execute().body();
+            if (areaList.size() > 0) {
+                return areaList.get(0);
+            }
+        } catch (Exception e) {
+            LogUtil.w(TAG, "getWeatherCode", e);
+        }
+        return null;
+    }
+
+    @Override
+    public String getLocationCity() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        Long writeTime = prefs.getLong("locationTime", 0);
+        Long nowTime = System.currentTimeMillis();
+        if (writeTime == 0 || writeTime < (nowTime - 30 * 60 * 1000)) {
+            locationUtil.start();
+        }
+        return prefs.getString("cityName", null);
     }
 }

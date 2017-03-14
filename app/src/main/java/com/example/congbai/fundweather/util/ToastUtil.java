@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class ToastUtil {
     private Context mContext;
 
+
     public ToastUtil(Context context) {
         mContext = context;
     }

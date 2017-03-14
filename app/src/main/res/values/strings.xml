@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">FundWeather</string>
+    <string name="app_title">天气预报</string>
+    <string name="exit_toast">再按一次退出</string>
+    <string name="china">中国</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="test">test</string>

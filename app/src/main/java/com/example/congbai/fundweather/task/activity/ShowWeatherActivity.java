@@ -11,6 +11,7 @@ import com.example.congbai.fundweather.R;
 import com.example.congbai.fundweather.task.component.DaggerShowWeatherComponent;
 import com.example.congbai.fundweather.task.fragment.ShowWeatherFragment;
 import com.example.congbai.fundweather.task.module.ShowWeatherModule;
+import com.example.congbai.fundweather.task.presenter.ChooseAreaPresenter;
 import com.example.congbai.fundweather.task.presenter.ShowWeatherPresenter;
 import com.example.congbai.fundweather.util.ActivityUtile;
 
@@ -42,5 +43,11 @@ public class ShowWeatherActivity extends BaseActivity {
                 .showWeatherModule(new ShowWeatherModule(showWeatherFragment))
                 .applicationComponent(((MyApplication) getApplication()).getApplicationComponent())
                 .build().inject(this);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

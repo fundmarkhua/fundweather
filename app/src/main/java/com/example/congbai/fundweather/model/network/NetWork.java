@@ -74,4 +74,19 @@ public class NetWork {
         return remoteDataApi;
     }
 
+    //根据城市名称获取天气代码
+    public AreaApi getWeatherCodeApi(String baseUrl, boolean rx) {
+        if (provinceApi == null) {
+            Retrofit.Builder builder = new Retrofit.Builder()
+                    .client(okHttpClient)
+                    .baseUrl(baseUrl)
+                    .addConverterFactory(gsonConverterFactory);
+            if (rx) {
+                builder.addCallAdapterFactory(rxJavaCallAdapterFactory);
+            }
+            provinceApi = builder.build().create(AreaApi.class);
+        }
+        return provinceApi;
+    }
+
 }

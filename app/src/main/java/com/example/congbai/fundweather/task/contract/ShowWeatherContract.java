@@ -18,6 +18,9 @@ public interface ShowWeatherContract {
         void showBackgroundImage(String imgUrl);
 
         void showExceptionMessage(String message);
+
+        void showRefreshStatus();
+
     }
 
     interface Presenter extends BasePresenter {

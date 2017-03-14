@@ -34,14 +34,14 @@ public class MyApplication extends Application {
                 //.schemaVersion(1)//新数据库版本
                 //.migration(new RealmDatabaseMigration())//检测到新版本，开始迁移数据库
                 //.schemaVersion(2)
-                //.deleteRealmIfMigrationNeeded()
+                .deleteRealmIfMigrationNeeded()//检测到版本不同 就删除数据库
                 .build();
         Realm.setDefaultConfiguration(configuration);
 
         mApplicationComponent = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(getApplicationContext())).build();
-    }
 
+    }
     public ApplicationComponent getApplicationComponent() {
         return mApplicationComponent;
     }

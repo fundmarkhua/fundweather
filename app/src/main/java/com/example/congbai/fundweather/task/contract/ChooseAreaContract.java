@@ -28,9 +28,6 @@ public interface ChooseAreaContract {
     }
 
     interface Presenter extends BasePresenter {
-        void saveProvince();
-
-        void getMessage();
 
         void getProvinceData();
 
@@ -38,7 +35,8 @@ public interface ChooseAreaContract {
 
         void getCountyData(int cityId);
 
-        void getWeatherData(String WeatherId);
+        void getWeatherCode(String cityName);
+
 
     }
 }

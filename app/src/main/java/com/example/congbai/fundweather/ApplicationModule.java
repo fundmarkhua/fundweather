@@ -3,6 +3,7 @@ package com.example.congbai.fundweather;
 import android.content.Context;
 
 import com.example.congbai.fundweather.model.network.NetWork;
+import com.example.congbai.fundweather.util.LocationUtil;
 import com.example.congbai.fundweather.util.RealmHelper;
 import com.example.congbai.fundweather.util.ToastUtil;
 
@@ -47,6 +48,14 @@ public final class ApplicationModule {
     @Provides
     NetWork provideNetWork() {
         return new NetWork();
+    }
+
+    @Singleton
+    @Provides
+    LocationUtil provideLocationUtil() {
+        LocationUtil locationUtil = LocationUtil.getInstance();
+        locationUtil.create(mContext);
+        return locationUtil;
     }
 
 }

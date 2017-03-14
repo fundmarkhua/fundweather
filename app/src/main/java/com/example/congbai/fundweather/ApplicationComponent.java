@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.congbai.fundweather.model.network.NetWork;
 import com.example.congbai.fundweather.model.repository.ChooseAreaRepository;
 import com.example.congbai.fundweather.model.repository.ShowWeatherRepository;
+import com.example.congbai.fundweather.util.LocationUtil;
 import com.example.congbai.fundweather.util.RealmHelper;
 import com.example.congbai.fundweather.util.ToastUtil;
 
@@ -28,6 +29,8 @@ public interface ApplicationComponent {
     Context getContext();
 
     ToastUtil getToastUtil();
+
+    LocationUtil getLocationUtil();
 /**
  RealmHelper getRealmHelper();
 

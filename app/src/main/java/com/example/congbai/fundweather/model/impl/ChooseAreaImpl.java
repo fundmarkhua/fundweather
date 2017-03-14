@@ -1,5 +1,6 @@
 package com.example.congbai.fundweather.model.impl;
 
+import com.baidu.location.BDLocation;
 import com.example.congbai.fundweather.model.entity.Province;
 import com.example.congbai.fundweather.model.network.gson.AreaData;
 
@@ -22,6 +23,10 @@ public interface ChooseAreaImpl {
     List<AreaData> getCityLocal(int provinceId);
 
     List<AreaData> getCountyLocal(int cityId);
+
+    AreaData getWeatherCode(String cityName);
+
+    String getLocationCity();
 
     int getProvinceId(int cityId);
 
