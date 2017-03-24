@@ -2,6 +2,7 @@ package com.example.congbai.fundweather.task.fragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -25,6 +26,7 @@ import com.example.congbai.fundweather.BaseActivity;
 import com.example.congbai.fundweather.BaseFragment;
 import com.example.congbai.fundweather.R;
 import com.example.congbai.fundweather.model.network.gson.Weather;
+import com.example.congbai.fundweather.receive.MyReceive;
 import com.example.congbai.fundweather.task.activity.ChooseAreaActivity;
 import com.example.congbai.fundweather.task.contract.ShowWeatherContract;
 import com.example.congbai.fundweather.util.ImageLoader;
@@ -44,7 +46,8 @@ import static dagger.internal.Preconditions.checkNotNull;
 
 public class ShowWeatherFragment extends BaseFragment implements ShowWeatherContract.View {
     private ShowWeatherContract.Presenter mPresenter;
-
+    private IntentFilter intentFilter;
+    private MyReceive myReceive;
     private String mWeatherId;
 
     @BindView(R.id.toolbar)
@@ -91,13 +94,27 @@ public class ShowWeatherFragment extends BaseFragment implements ShowWeatherCont
         ButterKnife.bind(this, root);
         initViews();
         initWeather();
+        ScreenRegister();
         return root;
+    }
+
+    private void ScreenRegister() {
+        intentFilter = new IntentFilter();
+        intentFilter.addAction("android.intent.action.SCREEN_ON");
+        myReceive = new MyReceive();
+        getActivity().registerReceiver(myReceive,intentFilter);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         mPresenter.start();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        getActivity().unregisterReceiver(myReceive);
     }
 
     @Override

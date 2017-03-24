@@ -2,7 +2,6 @@ package com.example.congbai.fundweather.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
